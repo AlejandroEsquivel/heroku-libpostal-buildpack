@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+BUILD_DIR=$1
+
+mkdir -p $BUILD_DIR
+
+echo "-----> Installing libpostal"
+git clone https://github.com/openvenues/libpostal
+cd libpostal/
+./bootstrap.sh
+CFLAGS="-I$BUILD_DIR/include" LDFLAGS="-L$BUILD_DIR/lib" ./configure --prefix=/app/libpostal --datadir=$BUILD_DIR
+
+make
+make install
